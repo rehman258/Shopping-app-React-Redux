@@ -1,25 +1,66 @@
-import logo from './logo.svg';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import * as ReactBootstraps from 'react-bootstrap';
 import './App.css';
+import Navbar from './components/Navbar/Navbar';
+import Home from './components/Home/Home';
+import About from './components/About/About';
+import Products from './components/Products/Products';
+import Cart from './components/Cart/Cart'
+import Contact from './components/Contact/Contact';
+import Details from './components/Details/Details'
+import ErrorPage from './components/ErrorPage/ErrorPage';
 
-function App() {
+import {BrowserRouter as Router,Switch,Route} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {useEffect} from 'react';
+import axios from 'axios';
+
+import { cartCount } from './components/actions/cartCount';
+import { pushingProducts } from './components/actions/product-action';
+
+function App(props) {
+  let count = 0;
+    // console.log()
+    
+    useEffect(() => {
+       axios.get('https://testshopping-59c29-default-rtdb.firebaseio.com/.json')
+      .then(elem => elem.data)
+      .then(data => data.items)
+      .then(items => props.pushingProducts(items) && true ? haha(items)  : [])
+        const haha=(items)=>{
+          for(let i=0;i<items.length;i++)
+            if(items[i].isInCart){
+                props.cartCount(i+1)
+            }
+          }
+
+    },[])
+      
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Navbar/>
+        <ReactBootstraps.Container fluid className="mx-0 px-0">
+          <Switch>
+                  <Route path="/" exact  component={Home} />
+                  <Route path="/about" exact component={About} />
+                  <Route path="/products" exact component={Products} />
+                  <Route path="/details/:id" exact component={Details} />
+                  <Route path="/contact" exact component={Contact} />
+                  // <Route path="/cart" exact> <Cart/> </Route>
+                  <Route component={ErrorPage}></Route>
+          </Switch>
+        </ReactBootstraps.Container>
+      </Router>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = state =>{
+  return state
+}
+const mapDispatchToProps ={
+  pushingProducts,
+  cartCount
+}
+export default connect(mapStateToProps,mapDispatchToProps)(App);
