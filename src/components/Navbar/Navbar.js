@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React,{useEffect,useState} from 'react';
 import * as ReactBootstraps from 'react-bootstrap';
 import * as ReactIcons from 'react-icons/fa';
 import  {Link} from 'react-router-dom';
@@ -9,14 +9,26 @@ import CartSymbal from './CartSymbal.js'
 
 function Navbar(props) {
 	// console.log(props)
+	const [positionNav,setPosition] = useState('relative')
+	useEffect(()=>{
 
+		// window.addEventListener('scroll',()=>{
+		// 	let scrollHeight = window.pageYOffset;
+		// 	if(scrollHeight > 100){
+		// 		setPosition('fix');
+		// 	}else{
+		// 		setPosition('relative');
+		// 	}
+		// 	console.log(scrollHeight,positionNav)
+		// })
 
-	// useEffect(()=>{
-	// 	console.log(props,'s');
-	// },[])
+	},[])
+
+	
+
 
 	return (
-			<ReactBootstraps.Navbar expand="lg"  className="MyNav  pt-3 pb-3" bg="dark">
+			<ReactBootstraps.Navbar expand="lg" style={{zIndex:"99",top:"0px" }} className="position-sticky MyNav  pt-3 pb-3" bg="dark">
 	  			<ReactBootstraps.Container>
 	  				<ReactBootstraps.Navbar.Brand >
 	  				<Link to="/">
