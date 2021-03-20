@@ -27,12 +27,14 @@ function App(props) {
       .then(elem => elem.data)
       .then(data => data.items)
       .then(items => props.pushingProducts(items) && true ? haha(items)  : [])
+
         const haha=(items)=>{
-          for(let i=0;i<items.length;i++)
+          for(let i=0;i<items.length;i++){
             if(items[i].isInCart){
                 props.cartCount(i+1)
             }
           }
+        }
 
     },[])
       
