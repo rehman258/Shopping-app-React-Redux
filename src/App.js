@@ -16,22 +16,27 @@ import {useEffect} from 'react';
 import axios from 'axios';
 
 import { cartCount } from './components/actions/cartCount';
+import {updateCart} from './components/actions/cart-action'; 
 import { pushingProducts } from './components/actions/product-action';
 
 function App(props) {
   let count = 0;
     // console.log()
-    
     useEffect(() => {
+      let myArr = props.cartReducer.cartItems;
        axios.get('https://testshopping-59c29-default-rtdb.firebaseio.com/.json')
       .then(elem => elem.data)
       .then(data => data.items)
       .then(items => props.pushingProducts(items) && true ? haha(items)  : [])
 
         const haha=(items)=>{
+          let j=0;
           for(let i=0;i<items.length;i++){
             if(items[i].isInCart){
-                props.cartCount(i+1)
+              j++
+              props.cartCount(j)
+              myArr.push(items[i])
+              props.updateCart(myArr)
             }
           }
         }
@@ -63,6 +68,7 @@ const mapStateToProps = state =>{
 }
 const mapDispatchToProps ={
   pushingProducts,
-  cartCount
+  cartCount,
+  updateCart
 }
 export default connect(mapStateToProps,mapDispatchToProps)(App);

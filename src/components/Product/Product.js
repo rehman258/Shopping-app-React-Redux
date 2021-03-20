@@ -1,18 +1,20 @@
 import React, {useEffect} from 'react';
 import * as ReactBootstraps from 'react-bootstrap';
 import  {useParams,Link} from 'react-router-dom';
-import { updateCart } from '../actions/cart-action'
+
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import axios from 'axios';
 import { cartCount } from '../actions/cartCount';
-
+import { updateCart } from '../actions/cart-action'
 function Product(props) {
 	
 	const data = props.products;
 	const {id} = useParams();
-	function AddingCart(e){
+	
+	let myArr = props.cartReducer.cartItems;
+	function AddingCart(){
 		if(!data.isInCart){
 			data.isInCart = true;
 			axios.put(`https://testshopping-59c29-default-rtdb.firebaseio.com/items/${data._id-1}.json`,data, {
@@ -20,11 +22,13 @@ function Product(props) {
 		      "isInCart":"true"
 		    }})
 			props.cartCount(props.cartCountReducer+1);
+			myArr.push(data)
+		    props.updateCart(myArr)
 		}else{
 			alert('is in cart')
 		}
 	}
-		
+	
 	return (
 		<ReactBootstraps.Col md={4} className="mb-2 mt-2 Product_Item">
 			<ReactBootstraps.Card style={{ width: '18rem' }} className="mx-auto">
@@ -54,7 +58,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-	cartCount
+	cartCount,
+	updateCart
 }
 
 

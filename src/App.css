@@ -131,3 +131,10 @@ body{
 	max-width: 50px;
 	max-height:50px;
 }
+.increment,.dicrement{
+	width: 25px;
+	height: 25px;
+	display: inline-block;
+	border:1px solid grey;
+	cursor: pointer;
+}

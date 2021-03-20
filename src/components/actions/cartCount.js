@@ -7,5 +7,4 @@ export const cartCount = function(count){
 		payload:count
 	}
 
-
 }
