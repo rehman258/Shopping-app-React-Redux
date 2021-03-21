@@ -10,7 +10,6 @@ export function updateCart(elem){
 		type: UpdateCart,
 		payload:elem
 	}
-
 }
 
 export function CalcCount(elem,calcType){
@@ -27,8 +26,6 @@ export function CalcCount(elem,calcType){
 	}
 	
 }
-
-
 
 
 export function DeleteItemCartAction(elem){

@@ -8,7 +8,6 @@ function CartCountItem(props) {
 
 	const changeCountOfProduct = (calcType) =>{
 		props.CalcCount(props.elem,calcType)
-		
 		if(calcType === "inc"){
 			props.cartCount(props.cartCountReducer+1)
 		}else if(calcType === "dicr"){

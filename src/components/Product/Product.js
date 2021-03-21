@@ -23,7 +23,7 @@ function Product(props) {
 		    }})
 			props.cartCount(props.cartCountReducer+1);
 			myArr.push(data)
-		    props.updateCart(myArr)
+		    props.updateCart(data)
 		}else{
 			alert('is in cart')
 		}

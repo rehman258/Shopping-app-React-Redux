@@ -52,7 +52,10 @@ function App(props) {
                   <Route path="/" exact  component={Home} />
                   <Route path="/about" exact component={About} />
                   <Route path="/products" exact component={Products} />
-                  <Route path="/details/:id" exact component={Details} />
+
+                  <Route path="/details/:id" exact>
+                    <Details detailElem={props}/>
+                  </Route>
                   <Route path="/contact" exact component={Contact} />
                   // <Route path="/cart" exact> <Cart/> </Route>
                   <Route component={ErrorPage}></Route>
