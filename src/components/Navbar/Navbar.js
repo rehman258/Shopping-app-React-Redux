@@ -12,20 +12,8 @@ function Navbar(props) {
 	const [positionNav,setPosition] = useState('relative')
 	useEffect(()=>{
 
-		// window.addEventListener('scroll',()=>{
-		// 	let scrollHeight = window.pageYOffset;
-		// 	if(scrollHeight > 100){
-		// 		setPosition('fix');
-		// 	}else{
-		// 		setPosition('relative');
-		// 	}
-		// 	console.log(scrollHeight,positionNav)
-		// })
 
 	},[])
-
-	
-
 
 	return (
 			<ReactBootstraps.Navbar expand="lg" style={{zIndex:"99",top:"0px" }} className="position-sticky MyNav  pt-3 pb-3" bg="dark">

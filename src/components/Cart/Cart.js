@@ -1,7 +1,6 @@
 import React, {useState,useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
-import { updateCart } from '../actions/cart-action';
 import axios from 'axios';
 import PropTypes from 'prop-types'
 import '../css/Cart.css';
@@ -9,32 +8,27 @@ import '../css/Cart.css';
 /*Components */
 import CartCountItem from './CartCountItem';
 /**/
-import { cartCount } from '../actions/cartCount';
 import { DeleteItemCartAction } from '../actions/cart-action';
 
 
 function Cart(props) {
-
+	const [total,setTotal] = useState(0);
+	useEffect(()=>{
+		let initTotal = 0;
+		props.cartReducer.cartItems.map(item=> initTotal += item.count*item.price)
+		setTotal(initTotal);
+	},[props.cartReducer])
+	
 	/*  DELETING FROM CART ANT DATABASE*/
+
 	const DeleteFromCart =(data)=>{
-		console.log(props)
 		data.isInCart = false;
 		axios.put(`https://testshopping-59c29-default-rtdb.firebaseio.com/items/${data._id-1}.json`,data, {
 		    headers: {
 		      "isInCart":"false"
 		}})
 		props.DeleteItemCartAction(data)
-		props.cartCount(props.cartCountReducer-data.count)
 	}
-
-
-	// Calculating All products prices 
-	let mainPrice =0;
-	const CalcPrices = ()=>{
-		props.productReducer.items.map(elem => elem.isInCart ? mainPrice += Number(elem.price * elem.count) :[])
-	}
-	CalcPrices();
-	/* *****************/
 	return (
 		<div>
 			<form>
@@ -62,7 +56,7 @@ function Cart(props) {
 			                        				<img src={elem.img} alt="" />
 			                        			</th>
 			                        			<th>{elem.title}</th>
-			                        			<CartCountItem count={elem.count} elem={elem}/>
+			                        			<CartCountItem elem={elem}/>
 			                        			<th className="text-center">$ {elem.price}</th>
 			                        			<th className="text-right pr-3">$ {elem.count * elem.price}</th>
 			                        			<th onClick={()=>DeleteFromCart(elem)}>remove</th>
@@ -78,9 +72,7 @@ function Cart(props) {
 		                                		<span className="mr-1">TOTAL =</span>
 		                                		<span className="mr-1">$</span>
 		                                		<span id="total" className="total">
-		                                		{
-		                                			mainPrice
-		                                		}
+		                                		{total}
 		                                		</span>
 		                                	</strong>
 		                                </td>
@@ -104,8 +96,7 @@ const mapStateToProps = state =>{
 	return state
 }
 const mapDispatchToProps = {
-	cartCount,
-	DeleteItemCartAction
+	DeleteItemCartAction,
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Cart)

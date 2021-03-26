@@ -5,7 +5,6 @@ import App from './App';
 
 import productReducer from './components/reducers/productReducer';
 import cartReducer from './components/reducers/cartReducer';
-import cartCountReducer from './components/reducers/cartCountReducer';
 
 import { createStore ,combineReducers,applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
@@ -16,7 +15,7 @@ import logger from 'redux-logger';
 const rootReducer = combineReducers({
 	productReducer,
 	cartReducer,
-	cartCountReducer
+	
 })
 
 const store = createStore(rootReducer,compose(

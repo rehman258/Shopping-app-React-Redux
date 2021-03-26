@@ -1,18 +1,20 @@
 import React from 'react'
 import axios from 'axios';
-import { CalcCount } from '../actions/cart-action';
-import { cartCount } from '../actions/cartCount';
+
 import {connect} from 'react-redux';
+import {CalcItemsCount} from '../actions/cart-action';
 
 function CartCountItem(props) {
 
+
 	const changeCountOfProduct = (calcType) =>{
-		props.CalcCount(props.elem,calcType)
 		if(calcType === "inc"){
-			props.cartCount(props.cartCountReducer+1)
-		}else if(calcType === "dicr"){
+			props.elem.count = props.elem.count+1
+			props.CalcItemsCount(props.elem);
+		}else if(calcType === "decr"){
 			if(props.elem.count > 1){
-				props.cartCount(props.cartCountReducer-1)
+				props.elem.count = props.elem.count-1
+				props.CalcItemsCount(props.elem);
 			}
 			
 		}
@@ -20,7 +22,7 @@ function CartCountItem(props) {
 	
 	return (
 		<th className="text-center">
-			<div className="dicrement" onClick={()=>changeCountOfProduct("dicr")}>-</div>
+			<div className="dicrement" onClick={()=>changeCountOfProduct("decr")}>-</div>
 				{props.elem.count}
 			<div className="increment" onClick={()=>changeCountOfProduct("inc")}>+</div>
 		</th>
@@ -30,8 +32,7 @@ const mapStateToProps =state=>{
 	return state
 }
 const mapDispatchToProps = {
-	CalcCount,
-	cartCount
+	CalcItemsCount
 }
 
 
