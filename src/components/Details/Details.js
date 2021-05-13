@@ -5,9 +5,10 @@ import '../css/Details.css'
 import { connect } from 'react-redux';
 
 
-function Details(props) {
+function Details({detailElem}) {
+	// console.log(detailElem)
 	const {id} = useParams();
-	let DetailsProduct = props.detailElem.cartReducer.cartItems.find(item => item._id === parseInt(id))
+	let DetailsProduct = detailElem.productReducer.items.find(item => item._id === parseInt(id))
 	return (
 		<div>
 			{
@@ -36,8 +37,8 @@ function Details(props) {
 	)
 }
 
-const mapStateToProps = products => ({
-	product:products.product
+const mapStateToProps = state => ({
+	return: state
 })
 
 export default connect(mapStateToProps)(Details)

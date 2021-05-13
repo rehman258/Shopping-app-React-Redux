@@ -9,10 +9,9 @@ import axios from 'axios';
 
 import { updateCart } from '../actions/cart-action'
 function Product(props) {
-	
+	console.log(props,'product')
 	const data = props.products;
 	const {id} = useParams();
-	
 	function AddingCart(){
 		if(!data.isInCart){
 			data.isInCart = true;
@@ -53,7 +52,6 @@ Product.propTypes = {
 const mapStateToProps = state => {
 	return state
 }
-
 const mapDispatchToProps = {
 	updateCart
 }

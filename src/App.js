@@ -47,7 +47,7 @@ function App(props) {
                     <Details detailElem={props}/>
                   </Route>
                   <Route path="/contact" exact component={Contact} />
-                  // <Route path="/cart" exact> <Cart/> </Route>
+                  <Route path="/cart" exact> <Cart/> </Route>
                   <Route component={ErrorPage}></Route>
           </Switch>
         </ReactBootstraps.Container>
